@@ -1,0 +1,12 @@
+{
+  "editor.tabSize": 2,
+  "editor.renderWhitespace": "trailing",
+  "editor.rulers": [120],
+  "files.exclude": {
+    "**/node_modules": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/node_modules/**": true
+  }
+}
