@@ -3,7 +3,7 @@ const routes = {
     fullPath: '/',
   },
   stockDetailsPage: {
-    fullPath: '',
+    fullPath: '/detail/:stock',
   },
 };
 
