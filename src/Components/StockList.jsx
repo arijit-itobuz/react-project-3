@@ -4,7 +4,7 @@ import CaretUpIcon from '../Icons/CaretUpIcon';
 import CaretDownIcon from '../Icons/CaretDownIcon';
 
 export default function StockList() {
-  const [watchList, setWatchList] = useState(['GOOGL', 'MSFT', 'AMZN']);
+  const [watchList, setWatchList] = useState(['GOOGL', 'MSFT', 'AMZN', 'AAPL']);
   const [stock, setStock] = useState([]);
 
   useEffect(() => {
