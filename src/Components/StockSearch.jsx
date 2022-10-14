@@ -5,7 +5,7 @@ export default function StockSearch() {
 
   return (
     <>
-      <section className='container-md my-5'>
+      <section className='container-md'>
         <div className='form-floating'>
           <input
             type='search'

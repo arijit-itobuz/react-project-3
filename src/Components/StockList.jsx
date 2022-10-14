@@ -34,7 +34,7 @@ export default function StockList() {
   };
   return (
     <>
-      <section className='container-md overflow-scroll my-2'>
+      <section className='container-md overflow-scroll'>
         <table className='table table-hover table-bordered '>
           <thead style={{ color: 'rgb(79, 89, 102)' }}>
             <tr>

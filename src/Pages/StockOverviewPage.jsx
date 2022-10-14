@@ -5,10 +5,14 @@ import StockSearch from '../Components/StockSearch';
 export default function StockOverviewPage() {
   return (
     <>
-      <div>
-        <StockSearch />
-        <StockList />
-      </div>
+      <section>
+        <div className=' my-5'>
+          <StockSearch />
+        </div>
+        <div className='my-2'>
+          <StockList />
+        </div>
+      </section>
     </>
   );
 }
