@@ -3,7 +3,7 @@ import React from 'react';
 export default function NotFound() {
   return (
     <>
-      <div>NotFound</div>
+      <section className='container text-center'>NotFound</section>
     </>
   );
 }
