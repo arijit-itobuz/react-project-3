@@ -1,4 +1,3 @@
-import { async } from 'q';
 import { axiosBase } from '../Axios/axios-api';
 
 export const stocksApi = {

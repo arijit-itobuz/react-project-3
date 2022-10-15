@@ -29,13 +29,13 @@ export default function StockSearch() {
             type='search'
             id='search'
             className='form-control'
-            placeholder='Search'
+            placeholder='Search Stocks'
             defaultValue={search}
             onChange={(e) => setSearch(e.target.value)}
             onFocus={() => setSearchFocus(true)}
             onBlur={() => setSearchFocus(false)}
           />
-          <label htmlFor='search'>Search</label>
+          <label htmlFor='search'>Search Stocks</label>
           {searchFocus && search !== '' && (
             <span
               className='position-absolute top-0 end-0 fw-light'
@@ -50,13 +50,19 @@ export default function StockSearch() {
           )}
           <ul
             className={`dropdown-menu ${
-              searchFocus && searchResults?.result?.length > 0 && search !== '' ? 'show' : ''
+              searchFocus && searchResults?.result?.length > 0 && search !== ''
+                ? 'show'
+                : ''
             } mt-2 w-100 overflow-scroll`}
             style={{ height: '300px' }}
           >
             {searchResults?.result?.map((e) => {
               return (
-                <li key={e.symbol} className='dropdown-item'>{`${e.description} ${e.symbol}`}</li>
+                <li
+                  key={e.symbol}
+                  className='dropdown-item'
+                  style={{ cursor: 'pointer' }}
+                >{`${e.description} (${e.symbol})`}</li>
               );
             })}
           </ul>
