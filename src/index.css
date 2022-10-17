@@ -1,0 +1,23 @@
+.table-head {
+  background-color: #f8f9fa !important;
+}
+
+.symbol-style {
+  cursor: pointer;
+  background-color: #f8f9fa !important;
+  font-weight: bold;
+}
+
+.search-result-count{
+  font-size: 0.9rem;
+  margin-right: 12px;
+  margin-top: 6px;
+}
+
+.dropdown-menu{
+  height: 300px;
+}
+
+.dropdown-item{
+  cursor: pointer;
+}

@@ -3,8 +3,11 @@ import { stocksApi } from '../Lib/Api/Stocks/stocks-api';
 import CaretUpIcon from '../Icons/CaretUpIcon';
 import CaretDownIcon from '../Icons/CaretDownIcon';
 import { AppContext } from '../Lib/Context/context';
+import { useNavigate } from 'react-router-dom';
 
 export default function StocksList() {
+  const navigate = useNavigate();
+
   const { stocksList } = useContext(AppContext);
   const [stocks, setStocks] = useState([]);
 
@@ -33,11 +36,14 @@ export default function StocksList() {
   const getStocksChange = (change) => {
     return change > 0 ? <CaretUpIcon /> : <CaretDownIcon />;
   };
+  const handleStockNavigate = (stockSymbol) => {
+    navigate(`detail/${stockSymbol}`);
+  };
   return (
     <>
       <section className='container-md overflow-scroll'>
         <table className='table table-hover table-bordered'>
-          <thead className='table-light' style={{ color: 'rgb(79, 89, 102)' }}>
+          <thead className='table-head'>
             <tr>
               <th scope='col'>Name</th>
               <th scope='col'>Curr</th>
@@ -52,12 +58,25 @@ export default function StocksList() {
           {stocks.length !== 0 &&
             stocks.map((e) => {
               if (e.status === 'fulfilled') {
-                const { c:current, d:change, dp:changePercent, h:high, l:low, o:open, pc:previousClose } = e.value.data;
+                const {
+                  c: current,
+                  d: change,
+                  dp: changePercent,
+                  h: high,
+                  l: low,
+                  o: open,
+                  pc: previousClose,
+                } = e.value.data;
                 const symbol = e.value.symbol;
                 return (
                   <tbody key={symbol}>
                     <tr>
-                      <td>{symbol}</td>
+                      <td
+                        onClick={() => handleStockNavigate(symbol)}
+                        className='symbol-style'
+                      >
+                        {symbol}
+                      </td>
                       <td>{current}</td>
                       <td className={`text-${setStocksColor(change)}`}>
                         <div className='d-flex justify-content-center align-items-center gap-2'>

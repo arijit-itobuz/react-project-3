@@ -3,7 +3,7 @@ import { stocksApi } from '../Lib/Api/Stocks/stocks-api';
 import { AppContext } from '../Lib/Context/context';
 
 export default function StockSearch() {
-  const { addStock } = useContext(AppContext);
+  const { stocksList, addStock } = useContext(AppContext);
 
   const [search, setSearch] = useState('');
   const [searchFocus, setSearchFocus] = useState(false);
@@ -37,40 +37,35 @@ export default function StockSearch() {
             onChange={(e) => setSearch(e.target.value)}
             onFocus={() => setSearchFocus(true)}
             onBlur={() => setSearchFocus(false)}
-            autoComplete="off"
+            autoComplete='off'
           />
           <label htmlFor='search'>Search Stocks</label>
           {searchFocus && search !== '' && (
-            <span
-              className='position-absolute top-0 end-0 fw-light'
-              style={{
-                fontSize: '0.9rem',
-                marginRight: '12px',
-                marginTop: '6px',
-              }}
-            >
+            <span className='position-absolute top-0 end-0 fw-light search-result-count'>
               {searchResults.count}
             </span>
           )}
           <ul
-            className={`dropdown-menu ${
+            className={`dropdown-menu mt-2 w-100 overflow-scroll ${
               searchFocus && searchResults?.result?.length > 0 && search !== ''
                 ? 'show'
                 : ''
-            } mt-2 w-100 overflow-scroll`}
-            style={{ height: '300px' }}
+            } `}
           >
             {searchResults?.result?.map((e) => {
               return (
                 <li
                   onMouseDown={() => {
-                    addStock(e.symbol);
-                    setSearchResults([]);
-                    setSearch('');
+                    if (stocksList.indexOf(e.symbol) === -1) {
+                      addStock(e.symbol);
+                      setSearchResults([]);
+                      setSearch('');
+                    } else {
+                      alert('stock already exists');
+                    }
                   }}
                   key={e.symbol}
                   className='dropdown-item'
-                  style={{ cursor: 'pointer' }}
                 >{`${e.description} (${e.symbol})`}</li>
               );
             })}
