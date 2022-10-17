@@ -1,5 +1,5 @@
 const routes = {
-  stockOverviewPage: {
+  stockListPage: {
     fullPath: '/',
   },
   stockDetailsPage: {
