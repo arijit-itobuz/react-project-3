@@ -37,6 +37,7 @@ export default function StockSearch() {
             onChange={(e) => setSearch(e.target.value)}
             onFocus={() => setSearchFocus(true)}
             onBlur={() => setSearchFocus(false)}
+            autoComplete="off"
           />
           <label htmlFor='search'>Search Stocks</label>
           {searchFocus && search !== '' && (
