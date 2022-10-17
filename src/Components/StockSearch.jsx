@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { stocksApi } from '../Lib/Api/Stocks/stocks-api';
+import { AppContext } from '../Lib/Context/context';
 
 export default function StockSearch() {
+  const { addStock } = useContext(AppContext);
+
   const [search, setSearch] = useState('');
   const [searchFocus, setSearchFocus] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
@@ -30,7 +33,7 @@ export default function StockSearch() {
             id='search'
             className='form-control'
             placeholder='Search Stocks'
-            defaultValue={search}
+            value={search}
             onChange={(e) => setSearch(e.target.value)}
             onFocus={() => setSearchFocus(true)}
             onBlur={() => setSearchFocus(false)}
@@ -59,6 +62,11 @@ export default function StockSearch() {
             {searchResults?.result?.map((e) => {
               return (
                 <li
+                  onMouseDown={() => {
+                    addStock(e.symbol);
+                    setSearchResults([]);
+                    setSearch('');
+                  }}
                   key={e.symbol}
                   className='dropdown-item'
                   style={{ cursor: 'pointer' }}

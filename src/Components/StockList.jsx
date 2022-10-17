@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { stocksApi } from '../Lib/Api/Stocks/stocks-api';
 import CaretUpIcon from '../Icons/CaretUpIcon';
 import CaretDownIcon from '../Icons/CaretDownIcon';
+import { AppContext } from '../Lib/Context/context';
 
-export default function StockList() {
-  const [watchList, setWatchList] = useState(['GOOGL', 'MSFT', 'AMZN', 'AAPL']);
-  const [stock, setStock] = useState([]);
+export default function StocksList() {
+  const { stocksList } = useContext(AppContext);
+  const [stocks, setStocks] = useState([]);
 
   useEffect(() => {
     (async () => {
       try {
-        const stocksQuoteRequests = watchList.map(async (e) => {
+        const stocksQuoteRequests = stocksList.map(async (e) => {
           const response = await stocksApi.quote(e);
           return {
             symbol: response.config.params.symbol,
@@ -18,25 +19,25 @@ export default function StockList() {
           };
         });
         const data = await Promise.allSettled(stocksQuoteRequests);
-        setStock(data);
+        setStocks(data);
         console.log('stocksQuoteRequests', data);
       } catch (error) {
         console.log('stocksQuoteRequests error', error);
       }
     })();
-  }, [watchList]);
+  }, [stocksList]);
 
-  const setStockColor = (change) => {
+  const setStocksColor = (change) => {
     return change > 0 ? 'success' : 'danger';
   };
-  const getStockChange = (change) => {
+  const getStocksChange = (change) => {
     return change > 0 ? <CaretUpIcon /> : <CaretDownIcon />;
   };
   return (
     <>
       <section className='container-md overflow-scroll'>
         <table className='table table-hover table-bordered'>
-          <thead className='table-light' style={{ color: 'rgb(79, 89, 102)'}}>
+          <thead className='table-light' style={{ color: 'rgb(79, 89, 102)' }}>
             <tr>
               <th scope='col'>Name</th>
               <th scope='col'>Curr</th>
@@ -48,32 +49,32 @@ export default function StockList() {
               <th scope='col'>Prev</th>
             </tr>
           </thead>
-          {stock.length !== 0 &&
-            stock.map((e) => {
+          {stocks.length !== 0 &&
+            stocks.map((e) => {
               if (e.status === 'fulfilled') {
-                const { c, d, dp, h, l, o, pc } = e.value.data;
+                const { c:current, d:change, dp:changePercent, h:high, l:low, o:open, pc:previousClose } = e.value.data;
                 const symbol = e.value.symbol;
                 return (
                   <tbody key={symbol}>
                     <tr>
                       <td>{symbol}</td>
-                      <td>{c}</td>
-                      <td className={`text-${setStockColor(d)}`}>
+                      <td>{current}</td>
+                      <td className={`text-${setStocksColor(change)}`}>
                         <div className='d-flex justify-content-center align-items-center gap-2'>
-                          {d}
-                          {getStockChange(d)}
+                          {change}
+                          {getStocksChange(change)}
                         </div>
                       </td>
-                      <td className={`text-${setStockColor(dp)}`}>
+                      <td className={`text-${setStocksColor(changePercent)}`}>
                         <div className='d-flex justify-content-center align-items-center gap-2'>
-                          {dp}
-                          {getStockChange(dp)}
+                          {changePercent}
+                          {getStocksChange(changePercent)}
                         </div>
                       </td>
-                      <td>{h}</td>
-                      <td>{l}</td>
-                      <td>{o}</td>
-                      <td>{pc}</td>
+                      <td>{high}</td>
+                      <td>{low}</td>
+                      <td>{open}</td>
+                      <td>{previousClose}</td>
                     </tr>
                   </tbody>
                 );
