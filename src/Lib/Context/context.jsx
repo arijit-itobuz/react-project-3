@@ -14,6 +14,7 @@ export const AppProvider = ({ children }) => {
       // const arr = [...stocksList];
       // arr.unshift(stockSymbol);
       // setStocksList(arr);
+      
       const arr = [stockSymbol, ...stocksList];
       setStocksList(arr);
       localStorage.setItem('open-stocks-stockList', JSON.stringify(arr));

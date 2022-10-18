@@ -8,5 +8,8 @@
   "files.watcherExclude": {
     "**/.git/objects/**": true,
     "**/node_modules/**": true
-  }
+  },
+  "cSpell.words": [
+    "toastify"
+  ]
 }

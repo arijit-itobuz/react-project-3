@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { toast } from 'react-toastify';
 import { stocksApi } from '../Lib/Api/Stocks/stocks-api';
 import { AppContext } from '../Lib/Context/context';
 
@@ -60,8 +61,9 @@ export default function StockSearch() {
                       addStock(e.symbol);
                       setSearchResults([]);
                       setSearch('');
+                      toast.success('Stock added successfully');
                     } else {
-                      alert('stock already exists');
+                      toast.warning('Stock already added');
                     }
                   }}
                   key={e.symbol}
